@@ -1,4 +1,4 @@
-# GoLemon — Evidence-Based Risk Scorecard & Remediation Tracker
+# GoLemon - Evidence-Based Risk Scorecard & Remediation Tracker
 
 [![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
@@ -15,9 +15,9 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 
 | Tier | Risks | Meaning |
 |---|---|---|
-| **Tier 1 — Evidence-supported** | R-001, R-006 | Direct evidence basis is sufficient to retain the risk. Control evidence has not been independently verified, so residual risk is not yet assessable. |
-| **Tier 2 — Material, verification-constrained** | R-002 | Thesis is supported by independent analyses, but the primary evidence source (GL-003) is unavailable. Retained, with the limitation disclosed. |
-| **Tier 3 — Risk hypotheses** | R-003, R-004, R-005 | Plausible, potentially material exposures. No adverse event or control failure is established, so no score is manufactured. |
+| **Tier 1 - Evidence-supported** | R-001, R-006 | Direct evidence basis is sufficient to retain the risk. Control evidence has not been independently verified, so residual risk is not yet assessable. |
+| **Tier 2 - Material, verification-constrained** | R-002 | Thesis is supported by independent analyses, but the primary evidence source (GL-003) is unavailable. Retained, with the limitation disclosed. |
+| **Tier 3 - Risk hypotheses** | R-003, R-004, R-005 | Plausible, potentially material exposures. No adverse event or control failure is established, so no score is manufactured. |
 
 ---
 
@@ -26,20 +26,20 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 | ID | Risk | Primary Cause / Driver | Potential Consequence | Evidence Position | Control Evidence | L | I | Inherent | Finding Status |
 |---|---|---|---|---|---|---|---|---|---|
 | R-001 | Liquidity / Operational Continuity | Dependence on continued funding and available liquidity | Inability to sustain operations / shutdown | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 — Critical** | Evidence-supported risk; control deficiency not confirmed |
-| R-002 | Operating Model / Scale | Exposure to insufficient scale/order density and economic pressure | Reduced economic sustainability and increased funding pressure | Material risk supported by independent analyses; GL-003 unavailable | Not verified | 4* | 5* | **20\* — Critical (provisional)** | Retain; evidence verification required |
+| R-002 | Operating Model / Scale | Exposure to insufficient scale/order density and economic pressure | Reduced economic sustainability and increased funding pressure | Material risk supported by independent analyses; GL-003 unavailable | Not verified | 4* | 5* | **20\* - Critical (provisional)** | Retain; evidence verification required |
 | R-003 | Supply Chain / Fulfilment | Dependency on suppliers and fulfilment arrangements | Supply disruption, service degradation, operational interruption | Dependency evidenced; adverse event not established | Not verified | — | — | Not scored | Risk hypothesis |
 | R-004 | Technology / Operational Resilience | Reliance on internally developed technology/systems | Operational disruption following system failure | Technology dependency evidenced; failure not established | Not verified | — | — | Not scored | Risk hypothesis |
 | R-005 | Third-Party / Channel Dependency | Dependence on external channel/partner arrangements | Loss of distribution/revenue channel or reduced operational flexibility | Relationship/exclusivity evidenced; materiality/failure not established | Not verified | — | — | Not scored | Risk hypothesis |
 | R-006 | Strategic Funding Dependency | Reliance on continued access to external capital | Funding shortfall, strategic contraction or business discontinuity | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 — Critical** | Evidence-supported risk; control deficiency not confirmed |
 
-\* R-002's numerical score is provisional — the underlying GL-003 source cannot currently be directly verified.
+\* R-002's numerical score is provisional; the underlying GL-003 source cannot currently be directly verified.
 
 ---
 
 ## Control & Remediation Matrix
 
 <details>
-<summary><strong>R-001 — Liquidity / operational continuity</strong> (Critical)</summary>
+<summary><strong>R-001 - Liquidity / operational continuity</strong> (Critical)</summary>
 
 | Field | Detail |
 |---|---|
@@ -53,7 +53,7 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 </details>
 
 <details>
-<summary><strong>R-002 — Operating model / scale</strong> (High/Critical, provisional)</summary>
+<summary><strong>R-002 - Operating model / scale</strong> (High/Critical, provisional)</summary>
 
 | Field | Detail |
 |---|---|
@@ -62,7 +62,7 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 | **Evidence Required** | Unit-economic model, order-volume data, contribution margins, fixed-cost analysis, KPI dashboards, management reviews. |
 | **Current Gap** | GL-003 unavailable; control evidence not verified. |
 | **Remediation** | Recover/validate the underlying economic analysis and establish documented scale, margin and break-even KRIs with escalation thresholds. |
-| **Priority** | High/Critical* — provisional pending direct verification of the underlying evidence |
+| **Priority** | High/Critical* - provisional pending direct verification of the underlying evidence |
 
 </details>
 
@@ -89,7 +89,7 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 ## Evidence Request List
 
 <details>
-<summary><strong>R-001 — Liquidity / operational continuity</strong></summary>
+<summary><strong>R-001 - Liquidity / operational continuity</strong></summary>
 
 | ID | Evidence Request | What It Tests | Evidence Type | Priority |
 |---|---|---|---|---|
@@ -119,7 +119,7 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 </details>
 
 <details>
-<summary><strong>R-002 — Operating model / scale</strong></summary>
+<summary><strong>R-002 - Operating model / scale</strong></summary>
 
 | ID | Evidence Request | What It Tests | Evidence Type | Priority |
 |---|---|---|---|---|
@@ -130,7 +130,7 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 | ER-019 | Fixed and variable operating-cost analysis | Determine cost structure and scale sensitivity | Financial data | Critical |
 | ER-020 | Break-even analysis and management assumptions | Determine required scale for sustainability | Financial model | Critical |
 | ER-021 | Operating KPI dashboards/reports | Determine whether economic performance was monitored | Management reporting | High |
-| ER-022 | Management/board discussions regarding scale economics | Determine whether scale risk was recognised | Governance record | High |
+| ER-022 | Management/board discussions regarding scale economics | Determine whether scale risk was recognized | Governance record | High |
 
 </details>
 
@@ -140,10 +140,10 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 
 Each item, once obtained, is assessed against four dimensions:
 
-1. **Existence** — Does the document/record actually exist?
-2. **Completeness** — Does it cover the relevant period and population?
-3. **Accuracy** — Can the underlying figures or assertions be reconciled?
-4. **Operating effectiveness** — Does the evidence show the control actually *operated*, not just that a policy existed?
+1. **Existence** - Does the document/record actually exist?
+2. **Completeness** - Does it cover the relevant period and population?
+3. **Accuracy** - Can the underlying figures or assertions be reconciled?
+4. **Operating effectiveness** - Does the evidence show the control actually *operated*, not just that a policy existed?
 
 ### Evidence status coding
 
@@ -155,7 +155,7 @@ Each item, once obtained, is assessed against four dimensions:
 | `EV-3` | Validated |
 | `EV-4` | Insufficient / exception identified |
 
-Each evidence item also carries an **Evidence Owner** — an accountable individual, so a gap is a tracked action rather than a research note.
+Each evidence item also carries an **Evidence Owner** - an accountable individual, so a gap is a tracked action rather than a research note.
 
 ---
 
@@ -166,26 +166,26 @@ Risk Register → Evidence Request List → Evidence Collection → Evidence Val
 → Control Testing → Finding → Remediation → Retest → Residual Risk
 ```
 
-## Risk hypotheses (Tier 3 — not scored)
+## Risk hypotheses (Tier 3 - not scored)
 
 <details>
-<summary><strong>R-003 — Supply chain / fulfilment</strong></summary>
+<summary><strong>R-003 - Supply chain / fulfilment</strong></summary>
 
-Dependency on suppliers and fulfilment arrangements — dependency evidenced, adverse event not established. Monitoring item pending evidence-gathering.
+Dependency on suppliers and fulfilment arrangements - dependency evidenced, adverse event not established. Monitoring item pending evidence-gathering.
 
 </details>
 
 <details>
-<summary><strong>R-004 — Technology / operational resilience</strong></summary>
+<summary><strong>R-004 - Technology / operational resilience</strong></summary>
 
-Reliance on internally developed technology/systems — technology dependency evidenced, failure not established. Monitoring item pending evidence-gathering.
+Reliance on internally developed technology/systems technology dependency evidenced, failure not established. Monitoring item pending evidence-gathering.
 
 </details>
 
 <details>
-<summary><strong>R-005 — Third-party / channel dependency</strong></summary>
+<summary><strong>R-005 - Third-party / channel dependency</strong></summary>
 
-Dependence on external channel/partner arrangements — relationship/exclusivity evidenced, materiality/failure not established. Monitoring item pending evidence-gathering.
+Dependence on external channel/partner arrangements relationship/exclusivity evidenced, materiality/failure not established. Monitoring item pending evidence-gathering.
 
 </details>
 
