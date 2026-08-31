@@ -25,12 +25,12 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 
 | ID | Risk | Primary Cause / Driver | Potential Consequence | Evidence Position | Control Evidence | L | I | Inherent | Finding Status |
 |---|---|---|---|---|---|---|---|---|---|
-| R-001 | Liquidity / Operational Continuity | Dependence on continued funding and available liquidity | Inability to sustain operations / shutdown | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 — Critical** | Evidence-supported risk; control deficiency not confirmed |
+| R-001 | Liquidity / Operational Continuity | Dependence on continued funding and available liquidity | Inability to sustain operations / shutdown | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 - Critical** | Evidence-supported risk; control deficiency not confirmed |
 | R-002 | Operating Model / Scale | Exposure to insufficient scale/order density and economic pressure | Reduced economic sustainability and increased funding pressure | Material risk supported by independent analyses; GL-003 unavailable | Not verified | 4* | 5* | **20\* - Critical (provisional)** | Retain; evidence verification required |
 | R-003 | Supply Chain / Fulfilment | Dependency on suppliers and fulfilment arrangements | Supply disruption, service degradation, operational interruption | Dependency evidenced; adverse event not established | Not verified | — | — | Not scored | Risk hypothesis |
 | R-004 | Technology / Operational Resilience | Reliance on internally developed technology/systems | Operational disruption following system failure | Technology dependency evidenced; failure not established | Not verified | — | — | Not scored | Risk hypothesis |
 | R-005 | Third-Party / Channel Dependency | Dependence on external channel/partner arrangements | Loss of distribution/revenue channel or reduced operational flexibility | Relationship/exclusivity evidenced; materiality/failure not established | Not verified | — | — | Not scored | Risk hypothesis |
-| R-006 | Strategic Funding Dependency | Reliance on continued access to external capital | Funding shortfall, strategic contraction or business discontinuity | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 — Critical** | Evidence-supported risk; control deficiency not confirmed |
+| R-006 | Strategic Funding Dependency | Reliance on continued access to external capital | Funding shortfall, strategic contraction or business discontinuity | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 - Critical** | Evidence-supported risk; control deficiency not confirmed |
 
 \* R-002's numerical score is provisional; the underlying GL-003 source cannot currently be directly verified.
 
