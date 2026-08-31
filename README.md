@@ -67,7 +67,7 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 </details>
 
 <details>
-<summary><strong>R-006 — Strategic funding dependency</strong> (Critical)</summary>
+<summary><strong>R-006 - Strategic funding dependency</strong> (Critical)</summary>
 
 | Field | Detail |
 |---|---|
