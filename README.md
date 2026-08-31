@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![Type](https://img.shields.io/badge/type-GRC%20risk%20assessment-informational)
 
-Six risks reconciled against verified evidence, existing control evidence, and control gaps — scored only where the underlying evidence supports a number, and flagged everywhere it doesn't.
+Six risks reconciled against verified evidence, existing control evidence, and control gaps scored only where the underlying evidence supports a number, and flagged everywhere it doesn't.
 
 > Two funding and scale pressures roll up into one liquidity exposure. The chain is reflected in the remediation sequencing below:
 > **R-006 Strategic funding dependency → R-001 Liquidity / operational continuity ← R-002 Operating model / scale**
