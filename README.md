@@ -155,7 +155,7 @@ Each item, once obtained, is assessed against four dimensions:
 | `EV-3` | Validated |
 | `EV-4` | Insufficient / exception identified |
 
-Each evidence item also carries an **Evidence Owner** - an accountable individual, so a gap is a tracked action rather than a research note.
+Each evidence item also carries an **Evidence Owner** an accountable individual, so a gap is a tracked action rather than a research note.
 
 ---
 
