@@ -104,7 +104,7 @@ Six risks reconciled against verified evidence, existing control evidence, and c
 </details>
 
 <details>
-<summary><strong>R-006 — Strategic funding dependency</strong></summary>
+<summary><strong>R-006 - Strategic funding dependency</strong></summary>
 
 | ID | Evidence Request | What It Tests | Evidence Type | Priority |
 |---|---|---|---|---|
