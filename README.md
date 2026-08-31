@@ -1,415 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GoLemon — Evidence-Based Risk Scorecard &amp; Remediation Tracker</title>
-<style>
-  :root{
-    --paper:#EFF1EC;
-    --panel:#F8F9F5;
-    --ink:#1B211D;
-    --ink-soft:#4A534C;
-    --rule:#D3D6C9;
-    --rule-strong:#B4B8A7;
-    --tier1:#1F5C4B;
-    --tier1-bg:#E4EEE9;
-    --tier2:#8F5E10;
-    --tier2-bg:#F3E9D6;
-    --tier3:#48546A;
-    --tier3-bg:#E7E9EE;
-    --critical:#8F2B20;
-    --font-display: Iowan Old Style, Palatino Linotype, Georgia, "Times New Roman", serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--font-sans);
-    line-height:1.55;
-    padding:0 0 6rem;
-  }
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+# GoLemon — Evidence-Based Risk Scorecard & Remediation Tracker
 
-  header.masthead{
-    border-bottom:1px solid var(--rule-strong);
-    padding:56px 0 32px;
-  }
-  .eyebrow{
-    font-family:var(--font-mono);
-    font-size:12.5px;
-    color:var(--ink-soft);
-    letter-spacing:0.02em;
-  }
-  h1{
-    font-family:var(--font-display);
-    font-weight:400;
-    font-size:38px;
-    margin:10px 0 14px;
-    max-width:16ch;
-  }
-  .dek{
-    font-size:16px;
-    color:var(--ink-soft);
-    max-width:60ch;
-    margin:0;
-  }
+[![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Type](https://img.shields.io/badge/type-GRC%20risk%20assessment-informational)
 
-  section{padding:40px 0;border-bottom:1px solid var(--rule);}
-  section:last-of-type{border-bottom:none;}
-  h2{
-    font-family:var(--font-display);
-    font-weight:400;
-    font-size:22px;
-    margin:0 0 6px;
-  }
-  .section-note{
-    font-size:14.5px;
-    color:var(--ink-soft);
-    max-width:62ch;
-    margin:0 0 28px;
-  }
+Six risks reconciled against verified evidence, existing control evidence, and control gaps — scored only where the underlying evidence supports a number, and flagged everywhere it doesn't.
 
-  /* causal chain */
-  .chain{
-    display:flex;
-    align-items:center;
-    gap:0;
-    flex-wrap:wrap;
-    margin-top:24px;
-  }
-  .chain-node{
-    font-family:var(--font-mono);
-    font-size:13.5px;
-    border:1px solid var(--rule-strong);
-    background:var(--panel);
-    padding:10px 16px;
-    border-radius:3px;
-  }
-  .chain-node.retain{border-color:var(--tier1);color:var(--tier1);}
-  .chain-arrow{
-    padding:0 14px;
-    color:var(--ink-soft);
-    font-size:14px;
-  }
+> Two funding and scale pressures roll up into one liquidity exposure. The chain is reflected in the remediation sequencing below:
+> **R-006 Strategic funding dependency → R-001 Liquidity / operational continuity ← R-002 Operating model / scale**
 
-  /* tier heading strip */
-  .tier-head{
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    margin:44px 0 18px;
-  }
-  .tier-head:first-child{margin-top:0;}
-  .tier-tag{
-    font-family:var(--font-mono);
-    font-size:11.5px;
-    padding:3px 9px;
-    border-radius:2px;
-  }
-  .tier1 .tier-tag{background:var(--tier1-bg);color:var(--tier1);}
-  .tier2 .tier-tag{background:var(--tier2-bg);color:var(--tier2);}
-  .tier3 .tier-tag{background:var(--tier3-bg);color:var(--tier3);}
-  .tier-title{font-family:var(--font-display);font-size:18px;}
-  .tier-desc{
-    font-size:13.5px;
-    color:var(--ink-soft);
-    margin:0 0 20px;
-    max-width:64ch;
-  }
+---
 
-  /* risk block */
-  .risk{
-    background:var(--panel);
-    border:1px solid var(--rule);
-    border-left:3px solid var(--rule-strong);
-    border-radius:2px;
-    padding:22px 26px;
-    margin-bottom:16px;
-  }
-  .risk.tier1{border-left-color:var(--tier1);}
-  .risk.tier2{border-left-color:var(--tier2);}
-  .risk.tier3{border-left-color:var(--tier3);}
+## Evidence Tiers
 
-  .risk-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    gap:16px;
-    flex-wrap:wrap;
-    margin-bottom:4px;
-  }
-  .risk-id{
-    font-family:var(--font-mono);
-    font-size:13px;
-    color:var(--ink-soft);
-  }
-  .risk-name{
-    font-family:var(--font-display);
-    font-size:19px;
-    margin:2px 0 2px;
-  }
-  .score-pill{
-    font-family:var(--font-mono);
-    font-size:12.5px;
-    padding:4px 10px;
-    border-radius:2px;
-    white-space:nowrap;
-  }
-  .score-critical{background:#F4E4E1;color:var(--critical);}
-  .score-provisional{background:var(--tier2-bg);color:var(--tier2);}
-  .score-unscored{background:var(--tier3-bg);color:var(--tier3);}
+| Tier | Risks | Meaning |
+|---|---|---|
+| **Tier 1 — Evidence-supported** | R-001, R-006 | Direct evidence basis is sufficient to retain the risk. Control evidence has not been independently verified, so residual risk is not yet assessable. |
+| **Tier 2 — Material, verification-constrained** | R-002 | Thesis is supported by independent analyses, but the primary evidence source (GL-003) is unavailable. Retained, with the limitation disclosed. |
+| **Tier 3 — Risk hypotheses** | R-003, R-004, R-005 | Plausible, potentially material exposures. No adverse event or control failure is established, so no score is manufactured. |
 
-  .finding-status{
-    font-size:13.5px;
-    color:var(--ink-soft);
-    font-style:italic;
-    margin:0 0 18px;
-  }
+---
 
-  .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0 32px;
-    border-top:1px solid var(--rule);
-    padding-top:14px;
-  }
-  .field{
-    padding:9px 0;
-    border-bottom:1px solid var(--rule);
-  }
-  .field .k{
-    font-family:var(--font-mono);
-    font-size:11px;
-    color:var(--ink-soft);
-    text-transform:uppercase;
-    letter-spacing:0.03em;
-    display:block;
-    margin-bottom:3px;
-  }
-  .field .v{font-size:14px;}
-  .flag{color:var(--tier2);}
-  .na{color:var(--ink-soft);font-style:italic;}
+## Risk Scorecard
 
-  .metrics{
-    display:flex;
-    gap:24px;
-    margin:16px 0 4px;
-    font-family:var(--font-mono);
-    font-size:13px;
-  }
-  .metric .k{color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:0.03em;display:block;margin-bottom:2px;}
+| ID | Risk | Primary Cause / Driver | Potential Consequence | Evidence Position | Control Evidence | L | I | Inherent | Finding Status |
+|---|---|---|---|---|---|---|---|---|---|
+| R-001 | Liquidity / Operational Continuity | Dependence on continued funding and available liquidity | Inability to sustain operations / shutdown | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 — Critical** | Evidence-supported risk; control deficiency not confirmed |
+| R-002 | Operating Model / Scale | Exposure to insufficient scale/order density and economic pressure | Reduced economic sustainability and increased funding pressure | Material risk supported by independent analyses; GL-003 unavailable | Not verified | 4* | 5* | **20\* — Critical (provisional)** | Retain; evidence verification required |
+| R-003 | Supply Chain / Fulfilment | Dependency on suppliers and fulfilment arrangements | Supply disruption, service degradation, operational interruption | Dependency evidenced; adverse event not established | Not verified | — | — | Not scored | Risk hypothesis |
+| R-004 | Technology / Operational Resilience | Reliance on internally developed technology/systems | Operational disruption following system failure | Technology dependency evidenced; failure not established | Not verified | — | — | Not scored | Risk hypothesis |
+| R-005 | Third-Party / Channel Dependency | Dependence on external channel/partner arrangements | Loss of distribution/revenue channel or reduced operational flexibility | Relationship/exclusivity evidenced; materiality/failure not established | Not verified | — | — | Not scored | Risk hypothesis |
+| R-006 | Strategic Funding Dependency | Reliance on continued access to external capital | Funding shortfall, strategic contraction or business discontinuity | Supported by GL-001 & GL-004 | Not directly verified | 4 | 5 | **20 — Critical** | Evidence-supported risk; control deficiency not confirmed |
 
-  footer{
-    max-width:920px;margin:0 auto;padding:32px 24px 0;
-    font-size:12.5px;color:var(--ink-soft);
-    border-top:1px solid var(--rule);
-    margin-top:16px;
-  }
+\* R-002's numerical score is provisional — the underlying GL-003 source cannot currently be directly verified.
 
-  @media (max-width:640px){
-    .grid{grid-template-columns:1fr;}
-    h1{font-size:30px;}
-  }
-</style>
-</head>
-<body>
+---
 
-<div class="wrap">
-<header class="masthead">
-  <div class="eyebrow">GoLemon — GRC risk assessment</div>
-  <h1>Evidence-based risk scorecard &amp; remediation tracker</h1>
-  <p class="dek">Six risks reconciled against verified evidence, existing control evidence, and control gaps — scored only where the underlying evidence supports a number, and flagged everywhere it doesn't.</p>
-</header>
+## Control & Remediation Matrix
 
-<section>
-  <h2>Reconciled causal chain</h2>
-  <p class="section-note">Two funding and scale pressures roll up into a single liquidity exposure. The chain is reflected in remediation sequencing below.</p>
-  <div class="chain">
-    <span class="chain-node retain">R-006 — Strategic funding dependency</span>
-    <span class="chain-arrow">&#8594;</span>
-    <span class="chain-node retain">R-001 — Liquidity / operational continuity</span>
-    <span class="chain-arrow">&#8592;</span>
-    <span class="chain-node retain">R-002 — Operating model / scale</span>
-  </div>
-</section>
+<details>
+<summary><strong>R-001 — Liquidity / operational continuity</strong> (Critical)</summary>
 
-<section>
+| Field | Detail |
+|---|---|
+| **Control Objective** | Management maintains sufficient liquidity visibility and contingency capacity to sustain critical operations during funding disruption. |
+| **Control Test** | Verify liquidity forecasting, cash runway monitoring, thresholds, escalation and contingency actions. |
+| **Evidence Required** | Cash-flow forecasts, runway analysis, board/management reports, funding contingency plan, escalation records. |
+| **Current Gap** | Control effectiveness not verifiable. |
+| **Remediation** | Establish rolling cash-flow forecasting, minimum liquidity thresholds, funding trigger levels, and documented escalation/contingency procedures. |
+| **Priority** | Critical |
 
-  <div class="tier-head tier1">
-    <span class="tier-tag">Tier 1</span>
-    <span class="tier-title">Evidence-supported</span>
-  </div>
-  <p class="tier-desc">Direct evidence basis sufficient to retain the risk. Control evidence has not been independently verified, so residual risk is not yet assessable.</p>
+</details>
 
-  <div class="risk tier1">
-    <div class="risk-top">
-      <div>
-        <span class="risk-id">R-001</span>
-        <h3 class="risk-name">Liquidity / operational continuity</h3>
-      </div>
-      <span class="score-pill score-critical">20 — Critical</span>
-    </div>
-    <p class="finding-status">Evidence-supported risk; control deficiency not confirmed</p>
-    <div class="metrics">
-      <div class="metric"><span class="k">Likelihood</span>4 — Likely</div>
-      <div class="metric"><span class="k">Impact</span>5 — Severe</div>
-      <div class="metric"><span class="k">Residual risk</span><span class="na">Not assessable</span></div>
-    </div>
-    <div class="grid">
-      <div class="field"><span class="k">Cause / driver</span><span class="v">Dependence on continued funding and available liquidity</span></div>
-      <div class="field"><span class="k">Consequence</span><span class="v">Inability to sustain operations / shutdown</span></div>
-      <div class="field"><span class="k">Evidence position</span><span class="v">Supported by GL-001 &amp; GL-004</span></div>
-      <div class="field"><span class="k">Evidence verification</span><span class="v">Not directly verified</span></div>
-      <div class="field"><span class="k">Control objective</span><span class="v">Ensure liquidity runway and continuity planning are actively managed and monitored</span></div>
-      <div class="field"><span class="k">Control test</span><span class="v">Review liquidity/cash-runway reporting, funding agreements, and continuity plans</span></div>
-      <div class="field"><span class="k">Control evidence</span><span class="v">Not directly verified</span></div>
-      <div class="field"><span class="k">Control gap</span><span class="v">Not confirmed — verification pending</span></div>
-      <div class="field"><span class="k">Remediation</span><span class="v">Obtain and independently verify liquidity/funding documentation and continuity controls</span></div>
-      <div class="field"><span class="k">Owner / priority / target</span><span class="v">Finance &amp; Treasury — Critical — current assessment cycle</span></div>
-    </div>
-  </div>
+<details>
+<summary><strong>R-002 — Operating model / scale</strong> (High/Critical, provisional)</summary>
 
-  <div class="risk tier1">
-    <div class="risk-top">
-      <div>
-        <span class="risk-id">R-006</span>
-        <h3 class="risk-name">Strategic funding dependency</h3>
-      </div>
-      <span class="score-pill score-critical">20 — Critical</span>
-    </div>
-    <p class="finding-status">Evidence-supported risk; control deficiency not confirmed</p>
-    <div class="metrics">
-      <div class="metric"><span class="k">Likelihood</span>4 — Likely</div>
-      <div class="metric"><span class="k">Impact</span>5 — Severe</div>
-      <div class="metric"><span class="k">Residual risk</span><span class="na">Not assessable</span></div>
-    </div>
-    <div class="grid">
-      <div class="field"><span class="k">Cause / driver</span><span class="v">Reliance on continued access to external capital</span></div>
-      <div class="field"><span class="k">Consequence</span><span class="v">Funding shortfall, strategic contraction, or business discontinuity</span></div>
-      <div class="field"><span class="k">Evidence position</span><span class="v">Supported by GL-001 &amp; GL-004</span></div>
-      <div class="field"><span class="k">Evidence verification</span><span class="v">Not directly verified</span></div>
-      <div class="field"><span class="k">Control objective</span><span class="v">Ensure funding-access planning and capital-raise contingencies are actively managed</span></div>
-      <div class="field"><span class="k">Control test</span><span class="v">Review funding pipeline documentation, investor commitments, and contingency plans</span></div>
-      <div class="field"><span class="k">Control evidence</span><span class="v">Not directly verified</span></div>
-      <div class="field"><span class="k">Control gap</span><span class="v">Not confirmed — verification pending</span></div>
-      <div class="field"><span class="k">Remediation</span><span class="v">Obtain and independently verify funding pipeline and contingency documentation</span></div>
-      <div class="field"><span class="k">Owner / priority / target</span><span class="v">Finance &amp; Executive — Critical — current assessment cycle</span></div>
-    </div>
-  </div>
+| Field | Detail |
+|---|---|
+| **Control Objective** | Management continuously monitors unit economics and operating scale against defined sustainability thresholds. |
+| **Control Test** | Test whether order density, contribution margin, fixed costs and break-even assumptions are monitored and escalated. |
+| **Evidence Required** | Unit-economic model, order-volume data, contribution margins, fixed-cost analysis, KPI dashboards, management reviews. |
+| **Current Gap** | GL-003 unavailable; control evidence not verified. |
+| **Remediation** | Recover/validate the underlying economic analysis and establish documented scale, margin and break-even KRIs with escalation thresholds. |
+| **Priority** | High/Critical* — provisional pending direct verification of the underlying evidence |
 
-  <div class="tier-head tier2">
-    <span class="tier-tag">Tier 2</span>
-    <span class="tier-title">Material — verification-constrained</span>
-  </div>
-  <p class="tier-desc">Thesis supported by independent analyses, but the primary evidence item is unavailable. Retained, with the limitation disclosed rather than absorbed.</p>
+</details>
 
-  <div class="risk tier2">
-    <div class="risk-top">
-      <div>
-        <span class="risk-id">R-002</span>
-        <h3 class="risk-name">Operating model / scale</h3>
-      </div>
-      <span class="score-pill score-provisional">20 — Critical (provisional)</span>
-    </div>
-    <p class="finding-status">Retain; evidence verification required</p>
-    <div class="metrics">
-      <div class="metric"><span class="k">Likelihood</span>4* — Likely</div>
-      <div class="metric"><span class="k">Impact</span>5* — Severe</div>
-      <div class="metric"><span class="k">Residual risk</span><span class="na">Not assessable</span></div>
-    </div>
-    <div class="grid">
-      <div class="field"><span class="k">Cause / driver</span><span class="v">Exposure to insufficient scale/order density and associated economic pressure</span></div>
-      <div class="field"><span class="k">Consequence</span><span class="v">Reduced economic sustainability and increased funding pressure</span></div>
-      <div class="field"><span class="k">Evidence position</span><span class="v">Independent analyses reportedly supporting the thesis; primary source GL-003 unavailable</span></div>
-      <div class="field"><span class="k">Evidence verification</span><span class="v flag">Not verified — GL-003 unavailable for direct verification</span></div>
-      <div class="field"><span class="k">Control objective</span><span class="v">Confirm scale/unit-economics assumptions and monitor operating-model sustainability</span></div>
-      <div class="field"><span class="k">Control test</span><span class="v flag">Cannot be executed until GL-003, or an equivalent primary source, is recovered</span></div>
-      <div class="field"><span class="k">Control evidence</span><span class="v">Not verified</span></div>
-      <div class="field"><span class="k">Control gap</span><span class="v">Not confirmed — evidence recovery required before a gap can be assessed</span></div>
-      <div class="field"><span class="k">Remediation</span><span class="v">Recover GL-003 (or equivalent) and independently validate the operating/economic assumptions before control testing</span></div>
-      <div class="field"><span class="k">Owner / priority / target</span><span class="v">GRC Lead &amp; Operations — High, pending evidence recovery — next assessment cycle</span></div>
-    </div>
-  </div>
+<details>
+<summary><strong>R-006 — Strategic funding dependency</strong> (Critical)</summary>
 
-  <div class="tier-head tier3">
-    <span class="tier-tag">Tier 3</span>
-    <span class="tier-title">Risk hypotheses</span>
-  </div>
-  <p class="tier-desc">Plausible, potentially material exposures. No adverse event or control failure is established, so no score is manufactured — these are monitoring items pending evidence.</p>
+| Field | Detail |
+|---|---|
+| **Control Objective** | Management identifies funding dependency and maintains alternative financing/continuity strategies. |
+| **Control Test** | Review funding concentration, financing pipeline, runway scenarios, contingency funding and escalation mechanisms. |
+| **Evidence Required** | Funding strategy, investor pipeline, financing agreements, scenario analysis, board minutes, contingency plans. |
+| **Current Gap** | Funding-contingency controls not directly verified. |
+| **Remediation** | Establish funding concentration monitoring, financing scenarios, trigger points and contingency options aligned to strategic runway requirements. |
+| **Priority** | Critical |
 
-  <div class="risk tier3">
-    <div class="risk-top">
-      <div>
-        <span class="risk-id">R-003</span>
-        <h3 class="risk-name">Supply chain / fulfilment</h3>
-      </div>
-      <span class="score-pill score-unscored">Not scored</span>
-    </div>
-    <p class="finding-status">Risk hypothesis — monitoring item</p>
-    <div class="grid">
-      <div class="field"><span class="k">Cause / driver</span><span class="v">Dependency on suppliers and fulfilment arrangements</span></div>
-      <div class="field"><span class="k">Consequence</span><span class="v">Supply disruption, service degradation, operational interruption</span></div>
-      <div class="field"><span class="k">Evidence position</span><span class="v">Dependency evidenced; adverse event not established</span></div>
-      <div class="field"><span class="k">Control objective</span><span class="v">Establish an evidence base to confirm or rule out material supply-chain exposure</span></div>
-      <div class="field"><span class="k">Control test</span><span class="v na">Not applicable — pending evidence collection</span></div>
-      <div class="field"><span class="k">Control gap</span><span class="v na">Not assessable — hypothesis stage</span></div>
-      <div class="field"><span class="k">Remediation</span><span class="v">Collect supplier-concentration data, contracts, and incident history to confirm or deny the hypothesis</span></div>
-      <div class="field"><span class="k">Owner / priority / target</span><span class="v">Operations — Monitor — next evidence-gathering cycle</span></div>
-    </div>
-  </div>
+</details>
 
-  <div class="risk tier3">
-    <div class="risk-top">
-      <div>
-        <span class="risk-id">R-004</span>
-        <h3 class="risk-name">Technology / operational resilience</h3>
-      </div>
-      <span class="score-pill score-unscored">Not scored</span>
-    </div>
-    <p class="finding-status">Risk hypothesis — monitoring item</p>
-    <div class="grid">
-      <div class="field"><span class="k">Cause / driver</span><span class="v">Reliance on internally developed technology/systems</span></div>
-      <div class="field"><span class="k">Consequence</span><span class="v">Operational disruption following system failure</span></div>
-      <div class="field"><span class="k">Evidence position</span><span class="v">Technology dependency evidenced; failure not established</span></div>
-      <div class="field"><span class="k">Control objective</span><span class="v">Establish an evidence base to confirm or rule out resilience exposure</span></div>
-      <div class="field"><span class="k">Control test</span><span class="v na">Not applicable — pending evidence collection</span></div>
-      <div class="field"><span class="k">Control gap</span><span class="v na">Not assessable — hypothesis stage</span></div>
-      <div class="field"><span class="k">Remediation</span><span class="v">Collect architecture review, incident/outage history, and DR/BCP documentation to confirm or deny the hypothesis</span></div>
-      <div class="field"><span class="k">Owner / priority / target</span><span class="v">Technology — Monitor — next evidence-gathering cycle</span></div>
-    </div>
-  </div>
+> **Note on terminology:** findings are recorded as *"control not evidenced / effectiveness not verifiable"* — never *"control absent."* An audit-ready assessment cannot infer a control didn't exist simply because public evidence of it wasn't found.
 
-  <div class="risk tier3">
-    <div class="risk-top">
-      <div>
-        <span class="risk-id">R-005</span>
-        <h3 class="risk-name">Third-party / channel dependency</h3>
-      </div>
-      <span class="score-pill score-unscored">Not scored</span>
-    </div>
-    <p class="finding-status">Risk hypothesis — monitoring item</p>
-    <div class="grid">
-      <div class="field"><span class="k">Cause / driver</span><span class="v">Dependence on external channel/partner arrangements</span></div>
-      <div class="field"><span class="k">Consequence</span><span class="v">Loss of distribution/revenue channel, or reduced operational flexibility</span></div>
-      <div class="field"><span class="k">Evidence position</span><span class="v">Relationship/exclusivity evidenced; materiality/failure not established</span></div>
-      <div class="field"><span class="k">Control objective</span><span class="v">Establish an evidence base to confirm or rule out channel-concentration exposure</span></div>
-      <div class="field"><span class="k">Control test</span><span class="v na">Not applicable — pending evidence collection</span></div>
-      <div class="field"><span class="k">Control gap</span><span class="v na">Not assessable — hypothesis stage</span></div>
-      <div class="field"><span class="k">Remediation</span><span class="v">Collect partner agreements, revenue-concentration data, and contract terms to confirm or deny the hypothesis</span></div>
-      <div class="field"><span class="k">Owner / priority / target</span><span class="v">Commercial &amp; Partnerships — Monitor — next evidence-gathering cycle</span></div>
-    </div>
-  </div>
+**GRC chain:** `Risk → Cause → Consequence → Control Objective → Test → Evidence → Gap → Remediation → Priority`
 
-</section>
-</div>
+---
 
-<footer>
-  GoLemon evidence-based risk scorecard v1 — inherent scores marked provisional remain pending evidence verification; no residual score is assigned without independently verified control evidence.
-</footer>
+## Evidence Request List
 
-</body>
-</html>
+<details>
+<summary><strong>R-001 — Liquidity / operational continuity</strong></summary>
+
+| ID | Evidence Request | What It Tests | Evidence Type | Priority |
+|---|---|---|---|---|
+| ER-001 | Monthly cash-flow forecasts, 6–12 months preceding shutdown | Whether liquidity was actively forecast | Financial record | Critical |
+| ER-002 | Historical cash balances and monthly cash-burn figures | Actual liquidity trajectory and runway | Financial data | Critical |
+| ER-003 | Board/management liquidity reports | Whether liquidity exposure reached management | Governance record | Critical |
+| ER-004 | Documented minimum cash/liquidity thresholds | Whether objective escalation triggers existed | Policy/control | Critical |
+| ER-005 | Liquidity escalation records and management actions | Whether identified liquidity pressure triggered action | Governance record | Critical |
+| ER-006 | Funding contingency plan | Whether management had a defined response to funding failure | Business continuity / strategy | Critical |
+| ER-007 | Going-concern or financial-sustainability assessments | Whether continuity risk was formally assessed | Financial/governance | High |
+
+</details>
+
+<details>
+<summary><strong>R-006 — Strategic funding dependency</strong></summary>
+
+| ID | Evidence Request | What It Tests | Evidence Type | Priority |
+|---|---|---|---|---|
+| ER-008 | Funding strategy and capital requirements | Degree of dependence on external funding | Strategy | Critical |
+| ER-009 | Investor/funding pipeline records | Availability and diversification of financing sources | Transactional record | Critical |
+| ER-010 | Financing agreements / term sheets / investment commitments | Confirmed funding sources and conditions | Legal/financial | Critical |
+| ER-011 | Funding concentration analysis | Whether the organisation relied on a limited number of funding sources | Risk analysis | High |
+| ER-012 | Scenario analysis for delayed/failed fundraising | Whether management modelled funding disruption | Risk analysis | Critical |
+| ER-013 | Board minutes discussing fundraising and runway | Whether strategic funding risk was escalated | Governance record | Critical |
+| ER-014 | Contingency financing options | Whether alternative funding mechanisms were identified | Strategy | High |
+
+</details>
+
+<details>
+<summary><strong>R-002 — Operating model / scale</strong></summary>
+
+| ID | Evidence Request | What It Tests | Evidence Type | Priority |
+|---|---|---|---|---|
+| ER-015 | Original GL-003 analysis | Validate the actual source behind the R-002 assessment | Source evidence | Critical |
+| ER-016 | Unit economics model | Test contribution economics per order/customer | Financial model | Critical |
+| ER-017 | Order-volume and order-density data | Test whether scale assumptions were achieved | Operational data | Critical |
+| ER-018 | Contribution margin by product/order/channel | Determine economic contribution | Financial data | Critical |
+| ER-019 | Fixed and variable operating-cost analysis | Determine cost structure and scale sensitivity | Financial data | Critical |
+| ER-020 | Break-even analysis and management assumptions | Determine required scale for sustainability | Financial model | Critical |
+| ER-021 | Operating KPI dashboards/reports | Determine whether economic performance was monitored | Management reporting | High |
+| ER-022 | Management/board discussions regarding scale economics | Determine whether scale risk was recognised | Governance record | High |
+
+</details>
+
+> These are **requested** evidence items, not evidence currently possessed. Their inclusion does not imply GoLemon had the control in place.
+
+### Evidence evaluation criteria
+
+Each item, once obtained, is assessed against four dimensions:
+
+1. **Existence** — Does the document/record actually exist?
+2. **Completeness** — Does it cover the relevant period and population?
+3. **Accuracy** — Can the underlying figures or assertions be reconciled?
+4. **Operating effectiveness** — Does the evidence show the control actually *operated*, not just that a policy existed?
+
+### Evidence status coding
+
+| Code | Meaning |
+|---|---|
+| `EV-0` | Not requested |
+| `EV-1` | Requested |
+| `EV-2` | Received |
+| `EV-3` | Validated |
+| `EV-4` | Insufficient / exception identified |
+
+Each evidence item also carries an **Evidence Owner** — an accountable individual, so a gap is a tracked action rather than a research note.
+
+---
+
+## Workflow
+
+```
+Risk Register → Evidence Request List → Evidence Collection → Evidence Validation
+→ Control Testing → Finding → Remediation → Retest → Residual Risk
+```
+
+## Risk hypotheses (Tier 3 — not scored)
+
+<details>
+<summary><strong>R-003 — Supply chain / fulfilment</strong></summary>
+
+Dependency on suppliers and fulfilment arrangements — dependency evidenced, adverse event not established. Monitoring item pending evidence-gathering.
+
+</details>
+
+<details>
+<summary><strong>R-004 — Technology / operational resilience</strong></summary>
+
+Reliance on internally developed technology/systems — technology dependency evidenced, failure not established. Monitoring item pending evidence-gathering.
+
+</details>
+
+<details>
+<summary><strong>R-005 — Third-party / channel dependency</strong></summary>
+
+Dependence on external channel/partner arrangements — relationship/exclusivity evidenced, materiality/failure not established. Monitoring item pending evidence-gathering.
+
+</details>
+
+---
+
+## License
+
+[GPL-2.0](LICENSE)
