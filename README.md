@@ -1,5 +1,4 @@
-# GoLemon
-Evidence-Based Risk Scorecard & Remediation Tracker
+# GoLemon - Evidence-Based Risk Scorecard & Remediation Tracker
 
 [![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
