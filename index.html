@@ -265,6 +265,7 @@
           <tr><td class="mono">Evidence Register</td><td>All 22 evidence requests, status, ownership, evidence traceability, and tester conclusions</td></tr>
           <tr><td class="mono">Testing Procedures</td><td>Test procedure, pass criteria and exception criteria for every ER-ID</td></tr>
           <tr><td class="mono">Legend &amp; Instructions</td><td>Status codes, methodology definitions, and the discipline this project is built on</td></tr>
+          <tr><td class="mono">Finding &amp; Remediation Register</td><td>Condition, criteria, cause, root cause, corrective action, owner, and residual risk, for any finding raised from a completed test</td></tr>
         </tbody>
       </table>
     </div>
@@ -503,6 +504,19 @@
     <h3 id="workflow-h">Workflow</h3>
     <div class="workflow"><b>Risk Register</b> &#8594; Evidence Request List &#8594; Evidence Collection &#8594; Evidence Validation
 &#8594; Control Testing &#8594; Finding &#8594; Remediation &#8594; Retest &#8594; Residual Risk</div>
+
+    <div class="table-wrap" style="margin-top:14px;">
+      <table>
+        <thead><tr><th>Stage</th><th>Tab</th></tr></thead>
+        <tbody>
+          <tr><td>Risk Register</td><td class="mono">Risk Register</td></tr>
+          <tr><td>Evidence Request List, Collection, Validation</td><td class="mono">Evidence Register</td></tr>
+          <tr><td>Control Testing</td><td class="mono">Testing Procedures</td></tr>
+          <tr><td>Finding, Remediation, Retest, Residual Risk</td><td class="mono">Finding &amp; Remediation Register</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:10px; font-size:13px; color:var(--ink-faint);">No evidence has been requested or tested yet, so the last three stages are currently empty templates, not populated findings.</p>
 
     <h3>Risk hypotheses (Tier 3 &middot; not scored)</h3>
     <div class="hypo">
