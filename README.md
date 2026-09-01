@@ -21,6 +21,7 @@ This README is the narrative layer. The working data lives in one workbook, in t
 | `Evidence Register` | All 22 evidence requests, status, ownership, evidence traceability, and tester conclusions |
 | `Testing Procedures` | Test procedure, pass criteria and exception criteria for every ER-ID |
 | `Legend & Instructions` | Status codes, methodology definitions, and the discipline this project is built on |
+| `Finding & Remediation Register` | Condition, criteria, cause, root cause, corrective action, owner, and residual risk, for any finding raised from a completed test |
 
 **[`GoLemon_Evidence_Collection_Testing_Register.xlsx`](./GoLemon_Evidence_Collection_Testing_Register.xlsx)**
 
@@ -185,6 +186,17 @@ Each evidence item also carries an **Evidence Owner**, an accountable individual
 Risk Register -> Evidence Request List -> Evidence Collection -> Evidence Validation
 -> Control Testing -> Finding -> Remediation -> Retest -> Residual Risk
 ```
+
+Every stage above now has a home in the workbook:
+
+| Stage | Tab |
+|---|---|
+| Risk Register | `Risk Register` |
+| Evidence Request List, Evidence Collection, Evidence Validation | `Evidence Register` |
+| Control Testing | `Testing Procedures` |
+| Finding, Remediation, Retest, Residual Risk | `Finding & Remediation Register` |
+
+No evidence has been requested or tested yet, so the last three stages are currently empty templates, not populated findings. See the `Finding & Remediation Register` tab for the discipline that governs when a finding is allowed to be opened.
 
 ## Risk hypotheses (Tier 3 - not scored)
 
